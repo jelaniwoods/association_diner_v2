@@ -1,0 +1,79 @@
+<% was_validated = plate.errors.any? %>
+
+<% form_html_options = { novalidate: true, class: "mb-3" } %>
+
+<%= form_for(plate, html: form_html_options) do |f| %>
+  <div class="form-group">
+    <% color_class = "form-control" %>
+    <% color_was_invalid = plate.errors.include?(:color) %>
+
+    <% if was_validated %>
+      <% if color_was_invalid %>
+        <% color_class << " is-invalid" %>
+      <% else %>
+        <% color_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :color %>
+
+    <%= f.text_field :color, class: color_class, placeholder: "Enter color" %>
+    <% if color_was_invalid %>
+      <% plate.errors.full_messages_for(:color).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-check">
+    <% fancy_class = "form-check-input" %>
+    <% fancy_was_invalid = plate.errors.include?(:fancy) %>
+
+    <% if was_validated %>
+      <% if fancy_was_invalid %>
+        <% fancy_class << " is-invalid" %>
+      <% else %>
+        <% fancy_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :fancy, class: "form-check-label" do %>
+      <%= f.check_box :fancy, class: fancy_class %> Fancy
+    <% end %>
+    <% if fancy_was_invalid %>
+      <% plate.errors.full_messages_for(:fancy).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="form-check">
+    <% dancing_class = "form-check-input" %>
+    <% dancing_was_invalid = plate.errors.include?(:dancing) %>
+
+    <% if was_validated %>
+      <% if dancing_was_invalid %>
+        <% dancing_class << " is-invalid" %>
+      <% else %>
+        <% dancing_class << " is-valid" %>
+      <% end %>
+    <% end %>
+
+    <%= f.label :dancing, class: "form-check-label" do %>
+      <%= f.check_box :dancing, class: dancing_class %> Dancing
+    <% end %>
+    <% if dancing_was_invalid %>
+      <% plate.errors.full_messages_for(:dancing).each do |message| %>
+        <div class="invalid-feedback d-flex">
+          <%= message %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>

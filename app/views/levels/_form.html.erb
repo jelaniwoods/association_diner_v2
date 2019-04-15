@@ -1,0 +1,7 @@
+<% was_validated = level.errors.any? %>
+
+<% form_html_options = { novalidate: true, class: "mb-3" } %>
+
+<%= form_for(level, html: form_html_options) do |f| %>
+  <%= f.button class: "btn btn-outline-secondary btn-block" %>
+<% end %>

@@ -6,10 +6,31 @@ class LevelsController < ApplicationController
     @levels = Level.all
   end
 
-  # GET /levels/1
   def show
+    session[:query] = []
   end
 
+  def results
+    @query = Query.find(session[:query].last["id"])
+
+    @evalu = eval(@query.input)
+    @res = false
+    @collection_returned = false
+
+    if @level.matches?(@query["input"])
+      @res =  true
+    else
+
+    end
+
+  end
+
+  def store
+    @query = {input: params.fetch(:input).gsub(/\s+/, ""), level_id: @level.id }
+    session[:query].push @query
+    @query.create_selections
+    redirect_to "/levels/#{@level.id}/results", notice: "yup"
+  end
   # GET /levels/new
   def new
     @level = Level.new
@@ -48,7 +69,11 @@ class LevelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_level
-      @level = Level.find(params[:id])
+      if params[:id].nil?
+        @level = Level.find(1) # TODO change to cookie thing maybe
+      else
+        @level = Level.find(params[:id])
+      end
     end
 
     # Only allow a trusted parameter "white list" through.

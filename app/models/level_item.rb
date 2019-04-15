@@ -13,5 +13,5 @@ class LevelItem < ApplicationRecord
   belongs_to :level
   belongs_to :plate, :required => false, :foreign_key => "item_id"
   belongs_to :fruit, :required => false, :foreign_key => "item_id"
-  belongs_to :bento, :foreign_key => "item_id"
+  # belongs_to :bento, :foreign_key => "item_id"
 end

@@ -9,5 +9,9 @@
 
 class Level < ApplicationRecord
   has_many :answers, :dependent => :destroy
-has_many :level_items, :dependent => :destroy
+  has_many :level_items, :dependent => :destroy
+
+  has_many :plates, :through => :level_items, :source => :plate
+  has_many :fruits, :through => :level_items, :source => :fruit
+
 end

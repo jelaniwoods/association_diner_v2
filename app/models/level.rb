@@ -16,4 +16,14 @@ class Level < ApplicationRecord
   has_many :plates, :through => :level_items, :source => :plate
   has_many :fruits, :through => :level_items, :source => :fruit
 
+
+  def matches?(query)
+    answers.each do |answer|
+      if answer.text == query
+        return true
+      end
+    end
+    false
+  end
+  
 end

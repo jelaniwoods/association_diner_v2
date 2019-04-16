@@ -18,11 +18,11 @@ class LevelsController < ApplicationController
     @res = false
     @collection_returned = false
 
-    # if @level.matches?(@query["input"])
-    #   @res =  true
-    # else
+    if @level.matches?(@query["input"])
+      @res =  true
+    else
 
-    # end
+    end
 
   end
 

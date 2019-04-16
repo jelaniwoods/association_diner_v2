@@ -1,32 +1,47 @@
-<div class="card mb-3">
+<div class="card mb-3 text-center">
   <h2 class="card-header h4">
     Level #<%= level.id %>
   </h2>
 
   <div class="card-body">
     <dl class="mb-1">
+      <dt>Number</dt>
+      <dd><%= level.number %></dd>
+      <dd><%= level.directions %></dd>
+      <div class="">
+        <% @level.plates.each do |selection| %>
+          <% if @results %>
+            <div class="<%= selection.class.to_s.downcase %> strobe selected">
+          <% else %>
+            <div class="<%= selection.class.to_s.downcase %> strobe">
+            <%= selection.id %>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
     </dl>
 
+    <div class="">
+      <%= render "query_form", query: @query, level: @level %>
+
+    </div>
     <div class="row">
+      <%= @evalu.inspect %>
       <div class="col">
-        <%= link_to_show_or_back level, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-block btn-outline-secondary" %>
+        <%#= link_to_show_or_back level, '<i class="fas fa-search-plus"></i>'.html_safe, '<i class="fas fa-chevron-left"></i>'.html_safe, class: "btn btn-outline-secondary" %>
       </div>
 
       <div class="col">
-        <%= link_to edit_level_url(level), class: "btn btn-block btn-outline-secondary" do %>
+        <%#= link_to edit_level_url(level), class: "btn btn-outline-secondary" do %>
           <i class="fas fa-edit"></i>
-        <% end %>
+        <%# end %>
       </div>
 
       <div class="col">
-        <%= link_to level, method: :delete, data: { confirm: "Do you really want to delete this level?" }, class: "btn btn-block btn-outline-secondary" do %>
+        <%#= link_to level, method: :delete, data: { confirm: "Do you really want to delete this level?" }, class: "btn btn-outline-secondary" do %>
           <i class="fas fa-trash-alt"></i>
-        <% end %>
+        <%# end %>
       </div>
     </div>
-  </div>
-
-  <div class="card-footer text-muted">
-    Last updated <%= time_ago_in_words(level.updated_at) %> ago
   </div>
 </div>

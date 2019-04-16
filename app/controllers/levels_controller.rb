@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_action :set_level, only: [:show, :edit, :update, :destroy]
+  before_action :set_level, only: %i[show edit store results update destroy]
 
   # GET /levels
   def index
@@ -11,24 +11,24 @@ class LevelsController < ApplicationController
   end
 
   def results
-    @query = Query.find(session[:query].last["id"])
+    @query = session[:query].last
 
-    @evalu = eval(@query.input)
+    @evalu = eval(@query["input"])
+    @selections = eval(@query["input"])
     @res = false
     @collection_returned = false
 
-    if @level.matches?(@query["input"])
-      @res =  true
-    else
+    # if @level.matches?(@query["input"])
+    #   @res =  true
+    # else
 
-    end
+    # end
 
   end
 
   def store
     @query = {input: params.fetch(:input).gsub(/\s+/, ""), level_id: @level.id }
     session[:query].push @query
-    @query.create_selections
     redirect_to "/levels/#{@level.id}/results", notice: "yup"
   end
   # GET /levels/new

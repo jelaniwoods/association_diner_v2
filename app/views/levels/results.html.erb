@@ -1,0 +1,39 @@
+<div class="row justify-content-center mb-3">
+  <div class="col-md-8">
+    <%= render object: @level, partial: "card", as: :level %>
+  </div>
+  <div class="col-md-4">
+    <h5>Models:</h5>
+    <hr>
+    <h6>Plate</h6>
+    <hr>
+    <p>id: integer</p>
+    <p>color: string</p>
+    <p>fancy: boolean</p>
+  </div>
+</div>
+<div class="">
+  <h5>Your Query</h5>
+  <p>
+    <%= @query["input"] %> was
+    <% if @res %>
+    correct!
+    <% else %>
+    incorrect!
+      <% if @collection_returned %>
+        <p>You returned a collection of Plates</p>
+        <p>Hint: the `where` method <strong>always</strong> returns a collection of rows from the database, even if that collection has one or even zero results.</p>
+      <% end %>
+    <% end %>
+  </p>
+  <div>
+    <%= link_to "Back", level_path(@level.id) %>
+  </div>
+  <div>
+    <% if !Level.where(id: @level.id + 1).empty? %>
+    <%= link_to "Next Level", level_path(@level.id + 1) %>
+    <% end %>
+  </div>
+
+
+</div>

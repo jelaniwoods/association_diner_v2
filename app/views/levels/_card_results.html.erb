@@ -9,13 +9,29 @@
       <dd><%= level.number %></dd>
       <dd><%= level.directions %></dd>
       <div class="">
-        <% @selections.each do |plate| %>
-          <% if plate.belongs_to_level?(@level) %>
-            <div class="<%= plate.class.to_s.downcase %> strobe selected">
-              <%= plate.id %>
-            </div>
+        <% if @is_relation%>
+          <% @level.plates.each do |plate| %>
+            <% if plate == @selections %>
+              <div class="<%= plate.class.to_s.downcase %> strobe selected">
+                <%= plate.id %>
+              </div>
+            <% else %>
+              <div class="<%= plate.class.to_s.downcase %> strobe">
+                <%= plate.id %>
+              </div>
+            <% end %>
+
+          <% end %>
+        <% else %>
+          <% @selections.each do |plate| %>
+            <% if plate.belongs_to_level?(@level) %>
+              <div class="<%= plate.class.to_s.downcase %> strobe selected">
+                <%= plate.id %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
+
       </div>
     </dl>
 

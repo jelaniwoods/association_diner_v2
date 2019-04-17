@@ -13,8 +13,18 @@ class LevelsController < ApplicationController
   def results
     @query = session[:query].last
 
-    @evalu = eval(@query["input"])
-    @selections = eval(@query["input"])
+    # @evalu = eval(@query["input"])
+
+    @selections = nil
+    @result = nil
+    result = eval(@query["input"])
+    # TODO figure out how to tell if eval returns an object or a relation
+    @is_relation = @query["input"].include?("where")
+    if @is_relation
+      @selections = result
+    else
+      @result = result
+    end
     @res = false
     @collection_returned = false
 

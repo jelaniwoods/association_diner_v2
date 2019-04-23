@@ -4,22 +4,13 @@
   </h2>
 
   <div class="card-body">
-    <dl class="mb-1">
-      <dt>Number</dt>
-      <dd><%= level.number %></dd>
-      <dd><%= level.directions %></dd>
-      <div class="">
-        <% @level.plates.each do |plate| %>
-          <% if @results %>
-            <div class="<%= plate.class.to_s.downcase %> strobe selected">
-          <% else %>
-            <div class="<%= plate.class.to_s.downcase %> strobe">
-            <%= plate.id %>
-          <% end %>
-          </div>
-        <% end %>
-      </div>
-    </dl>
+    <% if level == Level.first %>
+      <%= render "level_1", level: level %>
+    <% elsif level == Level.second %>
+      <%= render "level_2", level: level %>
+    <% elsif level == Level.third %>
+      <%= render "level_3", level: level %>
+    <% end %>
 
     <div class="">
       <%= render "query_form", query: @query, level: @level %>

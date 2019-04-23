@@ -1,0 +1,16 @@
+<dl class="mb-1">
+  <dt>Number</dt>
+  <dd><%= level.number %></dd>
+  <dd><%= level.directions %></dd>
+  <div class="">
+    <% @level.plates.each do |plate| %>
+      <% if @results %>
+        <div class="<%= plate.class.to_s.downcase %> strobe selected">
+      <% else %>
+        <div class="<%= plate.class.to_s.downcase %> strobe">
+        <%= plate.id %>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</dl>

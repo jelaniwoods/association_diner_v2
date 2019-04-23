@@ -19,10 +19,11 @@ class LevelsController < ApplicationController
     @result = nil
     result = eval(@query["input"])
     # TODO figure out how to tell if eval returns an object or a relation
-    @is_relation = @query["input"].include?("where")
+    @is_relation = @query["input"].include?("where") || @query["input"].include?("all")
     if @is_relation
       @selections = result
     else
+      @selections = @level.plates
       @result = result
     end
     @res = false
